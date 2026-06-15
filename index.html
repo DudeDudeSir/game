@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claude's Arena — Neo-Tokyo 2049</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- SCREENS -->
+  <div id="screen-menu" class="screen active">
+    <div class="menu-bg"></div>
+    <div class="scanlines"></div>
+    <div class="menu-content">
+      <div class="logo-area">
+        <div class="logo-icon">✦</div>
+        <h1 class="logo-title">CLAUDE'S ARENA</h1>
+        <p class="logo-sub">NEO-TOKYO 2049</p>
+      </div>
+      <div class="menu-buttons">
+        <button class="btn-neon" id="btn-play">▶ ENTER THE ARENA</button>
+        <button class="btn-neon secondary" id="btn-howto">◈ HOW TO PLAY</button>
+        <button class="btn-neon secondary" id="btn-scores">◉ HIGH SCORES</button>
+      </div>
+      <div class="menu-footer">
+        <span class="glitch" data-text="CLAUDE AI GAMING">CLAUDE AI GAMING</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-howto" class="screen">
+    <div class="menu-bg"></div>
+    <div class="scanlines"></div>
+    <div class="panel">
+      <h2>HOW TO PLAY</h2>
+      <div class="howto-grid">
+        <div class="howto-item">
+          <span class="key">← →</span>
+          <span>Move left / right</span>
+        </div>
+        <div class="howto-item">
+          <span class="key">SPACE</span>
+          <span>Shoot energy blast</span>
+        </div>
+        <div class="howto-item">
+          <span class="key">↑ / W</span>
+          <span>Jump</span>
+        </div>
+        <div class="howto-item">
+          <span class="key">SHIFT</span>
+          <span>Dash / dodge</span>
+        </div>
+        <div class="howto-item">
+          <span class="key">Q</span>
+          <span>Grenade</span>
+        </div>
+        <div class="howto-item">
+          <span class="key">P / ESC</span>
+          <span>Pause game</span>
+        </div>
+      </div>
+      <div class="howto-tips">
+        <h3>⚡ TIPS</h3>
+        <ul>
+          <li>Dash through enemy fire to avoid damage</li>
+          <li>Kill streaks multiply your score</li>
+          <li>Blue power-ups restore health</li>
+          <li>Gold power-ups grant temporary invincibility</li>
+          <li>Enemies get faster each wave</li>
+        </ul>
+      </div>
+      <button class="btn-neon" id="btn-back-menu">← BACK</button>
+    </div>
+  </div>
+
+  <div id="screen-scores" class="screen">
+    <div class="menu-bg"></div>
+    <div class="scanlines"></div>
+    <div class="panel">
+      <h2>HIGH SCORES</h2>
+      <table class="score-table" id="score-table">
+        <thead>
+          <tr><th>#</th><th>NAME</th><th>SCORE</th><th>WAVE</th></tr>
+        </thead>
+        <tbody id="score-body"></tbody>
+      </table>
+      <button class="btn-neon" id="btn-back-menu2">← BACK</button>
+    </div>
+  </div>
+
+  <div id="screen-game" class="screen">
+    <div id="hud">
+      <div class="hud-left">
+        <div class="hud-label">AGENT</div>
+        <div class="hud-name">CLAUDE</div>
+        <div class="health-bar-wrap">
+          <div id="health-bar" class="health-bar"></div>
+        </div>
+        <div class="hud-hp"><span id="hp-val">100</span> HP</div>
+      </div>
+      <div class="hud-center">
+        <div class="hud-label">WAVE</div>
+        <div id="wave-num" class="hud-big">1</div>
+        <div id="wave-sub" class="hud-sub">ENEMIES: <span id="enemy-count">0</span></div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-label">SCORE</div>
+        <div id="score-display" class="hud-big">0</div>
+        <div class="hud-sub">STREAK ×<span id="streak-display">1</span></div>
+      </div>
+    </div>
+    <div id="ammo-bar">
+      <span id="grenades">💥 3</span>
+      <span id="dash-cd" class="cd-ready">DASH ✓</span>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <div id="pause-overlay" class="hidden">
+      <div class="panel">
+        <h2>PAUSED</h2>
+        <button class="btn-neon" id="btn-resume">▶ RESUME</button>
+        <button class="btn-neon secondary" id="btn-quit">✕ QUIT</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen-gameover" class="screen">
+    <div class="menu-bg"></div>
+    <div class="scanlines"></div>
+    <div class="panel">
+      <h2 class="red-glow">AGENT DOWN</h2>
+      <div class="result-stats">
+        <div class="stat-row"><span>FINAL SCORE</span><span id="final-score">0</span></div>
+        <div class="stat-row"><span>WAVE REACHED</span><span id="final-wave">1</span></div>
+        <div class="stat-row"><span>ENEMIES KILLED</span><span id="final-kills">0</span></div>
+        <div class="stat-row"><span>BEST STREAK</span><span id="final-streak">0</span></div>
+      </div>
+      <div id="name-entry">
+        <label class="hud-label">ENTER YOUR NAME</label>
+        <input type="text" id="player-name" maxlength="10" placeholder="AGENT_X" />
+        <button class="btn-neon" id="btn-save-score">SAVE SCORE</button>
+      </div>
+      <button class="btn-neon secondary" id="btn-play-again">↺ PLAY AGAIN</button>
+      <button class="btn-neon secondary" id="btn-menu-go">⌂ MAIN MENU</button>
+    </div>
+  </div>
+
+  <script src="js/game.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
